@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LKPD IPS Kelas VIII - Adaptasi Perubahan Iklim</title>
+<style>
+:root{
+  --primary:#176b87;
+  --secondary:#39a96b;
+  --accent:#f4b942;
+  --light:#f4faf9;
+  --dark:#17324d;
+  --muted:#64748b;
+  --border:#dbe7e5;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:
+    radial-gradient(circle at 8% 8%,rgba(28,181,166,.20),transparent 26%),
+    radial-gradient(circle at 92% 12%,rgba(41,98,255,.16),transparent 25%),
+    linear-gradient(135deg,#e8f7f4 0%,#f7fbff 48%,#edf2ff 100%);
+  color:#182b3a;
+  line-height:1.6;
+}
+.container{max-width:1050px;margin:auto;padding:24px}
+.hero{
+  background:linear-gradient(135deg,#176b87,#39a96b);
+  color:white;border-radius:24px;padding:34px;
+  box-shadow:0 14px 35px rgba(23,107,135,.20);
+  position:relative;overflow:hidden;
+}
+.hero:after{
+  content:"🌱";position:absolute;right:35px;bottom:-20px;
+  font-size:120px;opacity:.16;
+}
+.badge{
+  display:inline-block;background:rgba(255,255,255,.18);
+  padding:6px 12px;border-radius:30px;font-size:13px;
+  margin-bottom:12px
+}
+h1{margin:0 0 8px;font-size:32px}
+.subtitle{margin:0;opacity:.94}
+.card{
+  background:white;border:1px solid var(--border);
+  border-radius:18px;padding:24px;margin-top:20px;
+  box-shadow:0 8px 24px rgba(30,70,90,.07)
+}
+.section-title{
+  display:flex;align-items:center;gap:10px;
+  color:var(--dark);font-size:21px;font-weight:700;
+  margin:0 0 16px
+}
+.section-title span{
+  width:36px;height:36px;border-radius:10px;
+  background:#e6f5f1;display:grid;place-items:center
+}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+label{font-weight:700;font-size:14px;color:var(--dark)}
+input,textarea,select{
+  width:100%;margin-top:6px;padding:11px 13px;
+  border:1px solid #cddbd9;border-radius:10px;
+  font:inherit;background:#fbfefd
+}
+textarea{min-height:105px;resize:vertical}
+.callout{
+  background:#f1f8f6;border-left:5px solid var(--secondary);
+  padding:15px 18px;border-radius:10px;margin:12px 0
+}
+.quote{
+  background:#fff8e8;border-left:5px solid var(--accent);
+  padding:15px 18px;border-radius:10px
+}
+table{width:100%;border-collapse:collapse;margin-top:12px}
+th,td{border:1px solid var(--border);padding:11px;vertical-align:top}
+th{background:#edf7f5;color:var(--dark);text-align:left}
+.choice-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.choice{
+  border:1px solid var(--border);padding:14px;border-radius:12px;
+  background:#fcfefe
+}
+.choice input{width:auto;margin-right:8px}
+.activity{
+  border:2px solid #e4efed;border-radius:16px;padding:18px;margin-top:15px
+}
+.activity h3{margin-top:0;color:var(--primary)}
+.small{font-size:13px;color:var(--muted)}
+.btnbar{
+  display:flex;gap:10px;flex-wrap:wrap;margin-top:20px
+}
+button{
+  border:0;border-radius:12px;padding:12px 18px;
+  font-weight:700;cursor:pointer;font-size:14px
+}
+.primary{background:var(--primary);color:white}
+.green{background:var(--secondary);color:white}
+.gray{background:#e8eef2;color:#334155}
+
+.quiz-wrap{background:linear-gradient(135deg,#f4fbff,#eefcf7);border:1px solid #cfe6e3;border-radius:20px;padding:20px}
+.level-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:15px 0}
+.level-tab{border:1px solid #c9dbdf;border-radius:13px;padding:12px;text-align:center;background:#fff;font-weight:700;color:#607384}
+.level-tab.active{background:linear-gradient(135deg,#075985,#0f766e);color:#fff;border-color:transparent}
+.level-tab.done{background:#e7f8ee;color:#137333;border-color:#b8e2c5}
+.level-panel{display:none}.level-panel.active{display:block}
+.quiz-question{background:#fff;border:1px solid #dce9e8;border-radius:16px;padding:18px;margin:12px 0;box-shadow:0 5px 15px rgba(30,70,90,.05)}
+.quiz-option{display:block;border:1px solid #d9e4e7;border-radius:11px;padding:11px 13px;margin:8px 0;cursor:pointer;background:#fbfefe}
+.quiz-option:hover{border-color:#0f766e;background:#f0fbf8}
+.quiz-option input{width:auto;margin-right:8px}
+.level-score{display:inline-block;background:#e9f7f2;border-radius:30px;padding:6px 12px;font-weight:700;color:#08735e}
+.locked{opacity:.55}
+.final-score{background:linear-gradient(135deg,#073b4c,#0f766e);color:white;border-radius:20px;padding:25px;text-align:center;margin-top:18px}
+.final-score .big{font-size:52px;font-weight:800;line-height:1}
+
+@media(max-width:700px){
+ .container{padding:12px}.hero{padding:25px}
+ h1{font-size:25px}.grid,.choice-grid{grid-template-columns:1fr}
+ .card{padding:17px}
+}
+@media print{
+ body{background:white}
+ .quiz-wrap{background:white!important}
+ .final-score{background:white!important;color:#111!important;border:1px solid #999}
+ .container{max-width:none;padding:0}
+ .hero{box-shadow:none}
+ .btnbar{display:none}
+ .card{box-shadow:none;break-inside:avoid}
+ input,textarea{border:1px solid #999;background:white}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header class="hero">
+  <div class="badge">LKPD IPS • Kelas VIII • Bab 2</div>
+  <h1>Ragam Aktivitas Manusia</h1>
+  <p class="subtitle"><b>A. Aktivitas Manusia Beradaptasi dengan Dampak Perubahan Iklim</b></p>
+  <p class="subtitle">Kenali dampaknya • Analisis masalah • Temukan solusi • Rencanakan aksi</p>
+</header>
+
+<section class="card">
+  <h2 class="section-title"><span>👤</span>Identitas Peserta Didik</h2>
+  <div class="grid">
+    <div><label>Nama Lengkap<input id="nama" placeholder="Contoh: Saepul Fadilah" autocomplete="name" onblur="rapikanNama(this)"></label></div>
+    <div><label>Kelas / Rombel<input id="kelas" placeholder="Contoh: VIII-A"></label></div>
+    <div><label>Kelompok<input id="kelompok" placeholder="Jika bekerja berkelompok"></label></div>
+    <div><label>Tanggal<input id="tanggal" type="date"></label></div>
+  </div>
+</section>
+
+<section class="card">
+  <h2 class="section-title"><span>🎯</span>Tujuan Pembelajaran</h2>
+  <p>Setelah mengerjakan LKPD ini, peserta didik diharapkan mampu:</p>
+  <ol>
+    <li>Menjelaskan dampak perubahan iklim yang terjadi di lingkungan sekitar.</li>
+    <li>Menganalisis bentuk aktivitas manusia dalam beradaptasi terhadap dampak perubahan iklim.</li>
+    <li>Mengidentifikasi solusi yang dapat dilakukan untuk mengurangi dampak perubahan iklim.</li>
+    <li>Merancang tindakan sederhana yang dapat dilakukan dalam kehidupan sehari-hari.</li>
+  </ol>
+</section>
+
+<section class="card">
+  <h2 class="section-title"><span>📖</span>Bacaan Singkat</h2>
+  <p>
+    Perubahan iklim merupakan perubahan kondisi fisik atmosfer bumi, termasuk perubahan
+    suhu dan distribusi curah hujan, yang dapat memberikan dampak luas bagi kehidupan.
+    Manusia perlu beradaptasi dan melakukan berbagai aktivitas untuk merespons dampak tersebut.
+  </p>
+  <div class="callout">
+    <b>Contoh aktivitas adaptasi:</b> menanam pohon, membuat sumur resapan,
+    memanen air hujan, membuat apotek hidup, menerapkan perilaku hidup bersih dan sehat (PHBS),
+    mengolah sampah organik rumah tangga, dan membuat biopori.
+  </div>
+  <p class="small">Gunakan bacaan pada Bab 2 bagian A sebagai dasar dalam mengerjakan aktivitas berikut.</p>
+</section>
+
+<section class="card">
+  <h2 class="section-title"><span>🔎</span>Aktivitas 1 — Detektif Perubahan Iklim</h2>
+  <div class="activity">
+    <h3>Amati lingkungan di sekitar kita</h3>
+    <p>Identifikasi satu dampak perubahan iklim atau cuaca ekstrem yang pernah kamu lihat/rasakan di lingkungan sekitar.</p>
+    <label>Masalah atau peristiwa yang kamu temukan
+      <textarea id="masalah" placeholder="Contoh: genangan/flooding setelah hujan deras..."></textarea>
+    </label>
+    <div class="grid">
+      <div><label>Apa dampaknya bagi manusia/lingkungan?
+        <textarea id="dampak" placeholder="Jelaskan dampaknya..."></textarea>
+      </label></div>
+      <div><label>Apa yang mungkin menjadi penyebab atau faktor yang memperparah?
+        <textarea id="penyebab" placeholder="Jelaskan berdasarkan hasil pengamatan..."></textarea>
+      </label></div>
+    </div>
+  </div>
+
+  <div class="activity">
+    <h3>Analisis</h3>
+    <p>Bagaimana manusia dapat beradaptasi atau merespons masalah tersebut?</p>
+    <textarea id="adaptasi" placeholder="Tuliskan bentuk adaptasi yang sesuai..."></textarea>
+  </div>
+</section>
+
+<section class="card">
+  <h2 class="section-title"><span>🌱</span>Aktivitas 2 — Pilih Aksi Kita</h2>
+  <p>Pilih aktivitas yang menurutmu paling sesuai untuk membantu menghadapi dampak perubahan iklim.</p>
+
+  <div class="choice-grid">
+    <label class="choice"><input type="checkbox" value="Menanam pohon">🌳 Menanam pohon</label>
+    <label class="choice"><input type="checkbox" value="Membuat sumur resapan">💧 Membuat sumur resapan</label>
+    <label class="choice"><input type="checkbox" value="Memanen air hujan">☔ Memanen air hujan</label>
+    <label class="choice"><input type="checkbox" value="Membuat apotek hidup">🌿 Membuat apotek hidup</label>
+    <label class="choice"><input type="checkbox" value="PHBS">🧼 Menerapkan PHBS</label>
+    <label class="choice"><input type="checkbox" value="Mengolah sampah organik">♻️ Mengolah sampah organik</label>
+    <label class="choice"><input type="checkbox" value="Membuat biopori">🕳️ Membuat biopori</label>
+  </div>
+
+  <div class="activity">
+    <label>Aktivitas yang paling ingin kamu pilih
+      <textarea id="pilihan" placeholder="Tuliskan pilihanmu dan alasannya..."></textarea>
+    </label>
+    <label>Jelaskan mengapa aktivitas tersebut dapat membantu menghadapi dampak perubahan iklim.
+      <textarea id="alasan" placeholder="Jelaskan hubungan aktivitas dengan masalah yang kamu pilih..."></textarea>
+    </label>
+  </div>
+</section>
+
+<section class="card">
+  <h2 class="section-title"><span>🚀</span>Aktivitas 3 — Tantangan 7 Hari Peduli Iklim</h2>
+  <p>Rancang satu kebiasaan sederhana yang dapat kamu lakukan selama 7 hari.</p>
+  <div class="example">
+    <b>💡 Contoh untuk membantu kamu:</b>
+    <p><b>Hari 1:</b> Membawa botol minum sendiri ke sekolah.</p>
+    <p><b>Hari 2:</b> Mematikan lampu dan kipas ketika ruang kelas kosong.</p>
+    <p><b>Hari 3:</b> Membuang sampah sesuai jenisnya.</p>
+    <p><b>Hari 4:</b> Mengurangi penggunaan plastik sekali pakai.</p>
+    <p><b>Hari 5:</b> Menyiram tanaman menggunakan air secukupnya.</p>
+    <p><b>Hari 6:</b> Ikut menjaga kebersihan halaman rumah/sekolah.</p>
+    <p><b>Hari 7:</b> Mengajak satu teman melakukan kebiasaan peduli lingkungan.</p>
+    <div class="hint">Kamu tidak harus mengikuti contoh. Pilih tindakan sederhana yang benar-benar bisa kamu lakukan.</div>
+  </div>
+  <table>
+    <tr><th style="width:18%">Hari</th><th>Rencana Aksi</th><th style="width:25%">Bukti / Catatan</th></tr>
+    <tr><td>Hari 1</td><td><input placeholder="Aksi hari 1"></td><td><input placeholder="Catatan"></td></tr>
+    <tr><td>Hari 2</td><td><input placeholder="Aksi hari 2"></td><td><input placeholder="Catatan"></td></tr>
+    <tr><td>Hari 3</td><td><input placeholder="Aksi hari 3"></td><td><input placeholder="Catatan"></td></tr>
+    <tr><td>Hari 4</td><td><input placeholder="Aksi hari 4"></td><td><input placeholder="Catatan"></td></tr>
+    <tr><td>Hari 5</td><td><input placeholder="Aksi hari 5"></td><td><input placeholder="Catatan"></td></tr>
+    <tr><td>Hari 6</td><td><input placeholder="Aksi hari 6"></td><td><input placeholder="Catatan"></td></tr>
+    <tr><td>Hari 7</td><td><input placeholder="Aksi hari 7"></td><td><input placeholder="Catatan"></td></tr>
+  </table>
+</section>
+
+
+<section class="card" id="kuisBerlevel">
+  <h2 class="section-title"><span>🎮</span>Kuis Berlevel — Tantangan Adaptasi Perubahan Iklim</h2>
+  <div class="quiz-wrap">
+    <p><b>Petunjuk:</b> Selesaikan Level 1 sebelum membuka Level 2, dan seterusnya. Setiap level memiliki nilai maksimum <b>100</b>. Nilai akhir kuis juga tetap maksimum <b>100</b>.</p>
+
+    <div class="level-tabs">
+      <div class="level-tab active" id="tab1">LEVEL 1<br><small>KENALI</small></div>
+      <div class="level-tab locked" id="tab2">🔒 LEVEL 2<br><small>PAHAMI</small></div>
+      <div class="level-tab locked" id="tab3">🔒 LEVEL 3<br><small>ANALISIS</small></div>
+      <div class="level-tab locked" id="tab4">🔒 LEVEL 4<br><small>AKSI</small></div>
+    </div>
+
+    <div class="level-panel active" id="level1">
+      <h3>🌱 Level 1 — Kenali</h3>
+      <p>Uji pemahaman dasar tentang perubahan iklim dan adaptasi.</p>
+      <div id="q1"></div>
+      <button class="primary" onclick="finishLevel(1)">Selesai Level 1 →</button>
+      <span class="level-score" id="score1">Belum dikerjakan</span>
+    </div>
+
+    <div class="level-panel" id="level2">
+      <h3>🔎 Level 2 — Pahami</h3>
+      <p>Pahami hubungan antara masalah lingkungan dan tindakan adaptasi.</p>
+      <div id="q2"></div>
+      <button class="primary" onclick="finishLevel(2)">Selesai Level 2 →</button>
+      <span class="level-score" id="score2">Belum dikerjakan</span>
+    </div>
+
+    <div class="level-panel" id="level3">
+      <h3>🧠 Level 3 — Analisis</h3>
+      <p>Analisis situasi sederhana yang dekat dengan kehidupan sehari-hari.</p>
+      <div id="q3"></div>
+      <button class="primary" onclick="finishLevel(3)">Selesai Level 3 →</button>
+      <span class="level-score" id="score3">Belum dikerjakan</span>
+    </div>
+
+    <div class="level-panel" id="level4">
+      <h3>🚀 Level 4 — Aksi</h3>
+      <p>Pilih tindakan yang paling tepat berdasarkan situasi yang diberikan.</p>
+      <div id="q4"></div>
+      <button class="primary" onclick="finishLevel(4)">Selesai Level 4</button>
+      <span class="level-score" id="score4">Belum dikerjakan</span>
+    </div>
+
+    <div class="final-score">
+      <div>🏆 REKAP NILAI KUIS</div>
+      <div style="margin-top:12px;text-align:left;background:rgba(255,255,255,.10);border-radius:14px;padding:14px">
+        <div>Level 1 — Kenali: <b><span id="quizLevel1">0</span>/100</b></div>
+        <div>Level 2 — Pahami: <b><span id="quizLevel2">0</span>/100</b></div>
+        <div>Level 3 — Analisis: <b><span id="quizLevel3">0</span>/100</b></div>
+        <div>Level 4 — Aksi: <b><span id="quizLevel4">0</span>/100</b></div>
+      </div>
+      <div style="margin-top:15px">AKUMULASI NILAI KUIS</div>
+      <div class="big" id="quizFinal">0</div>
+      <div>/ 100</div>
+      <div id="quizPredicate" style="margin-top:8px">Belum menyelesaikan semua level</div>
+    </div>
+  </div>
+</section>
+
+<section class="card">
+  <h2 class="section-title"><span>💭</span>Refleksi</h2>
+  <div class="quote">
+    <b>Setelah mengerjakan LKPD ini, apa satu hal yang paling kamu pahami tentang
+    cara manusia beradaptasi terhadap dampak perubahan iklim?</b>
+  </div>
+  <textarea id="refleksi" placeholder="Tuliskan refleksimu..."></textarea>
+
+  <div class="grid">
+    <div><label>Hal yang ingin saya ubah dari kebiasaan saya:
+      <textarea id="ubah"></textarea></label></div>
+    <div><label>Aksi yang akan saya lanjutkan:
+      <textarea id="lanjut"></textarea></label></div>
+  </div>
+</section>
+
+<section class="card">
+  <h2 class="section-title"><span>📊</span>Nilai Otomatis LKPD</h2>
+  <p>Nilai dihitung berdasarkan kelengkapan dan kualitas respons yang diisi. Skor maksimum adalah <b>100</b>.</p>
+  <table class="rubric">
+    <tr><th>Komponen</th><th>Bobot</th><th>Dasar penilaian otomatis</th></tr>
+    <tr><td>Aktivitas 1 — Analisis masalah</td><td>30</td><td>Masalah, dampak, penyebab, dan adaptasi terisi.</td></tr>
+    <tr><td>Aktivitas 2 — Solusi</td><td>25</td><td>Pilihan aktivitas dan alasan solusi terisi.</td></tr>
+    <tr><td>Aktivitas 3 — Aksi 7 hari</td><td>25</td><td>Rencana aksi diisi untuk 7 hari.</td></tr>
+    <tr><td>Refleksi</td><td>20</td><td>Refleksi, perubahan kebiasaan, dan aksi lanjutan terisi.</td></tr>
+  </table>
+  <div class="score-box">
+    <div class="small">NILAI AKHIR LKPD</div>
+    <div class="score-number" id="score">0</div>
+    <div>/ 100</div>
+    <div class="predicate" id="predicate">Belum dinilai</div>
+  </div>
+
+  <div class="score-box" style="margin-top:14px">
+    <div class="small">NILAI KUIS BERLEVEL — TIDAK DIGABUNG DENGAN NILAI LKPD</div>
+    <table class="rubric" style="margin-top:12px">
+      <tr><th>Level Kuis</th><th>Nilai</th></tr>
+      <tr><td>Level 1 — Kenali</td><td><b id="printQuiz1">0 / 100</b></td></tr>
+      <tr><td>Level 2 — Pahami</td><td><b id="printQuiz2">0 / 100</b></td></tr>
+      <tr><td>Level 3 — Analisis</td><td><b id="printQuiz3">0 / 100</b></td></tr>
+      <tr><td>Level 4 — Aksi</td><td><b id="printQuiz4">0 / 100</b></td></tr>
+      <tr><th>Akumulasi Nilai Kuis</th><th><b id="printQuizFinal">0 / 100</b></th></tr>
+    </table>
+    <div class="small" style="margin-top:8px">Nilai kuis berdiri sendiri dan tidak dijumlahkan dengan Nilai Akhir LKPD.</div>
+  </div>
+  <div class="btnbar" style="justify-content:center">
+    <button class="green" onclick="calculateScore()">📊 Hitung Nilai</button>
+  </div>
+</section>
+
+<section class="card">
+  <h2 class="section-title"><span>🧑‍🏫</span>Catatan Guru</h2>
+  <textarea placeholder="Catatan, umpan balik, atau tindak lanjut guru..."></textarea>
+</section>
+
+<div class="btnbar">
+  <button class="primary" onclick="window.print()">🖨️ Cetak / Simpan PDF</button>
+  <button class="green" onclick="saveData()">💾 Simpan Jawaban</button>
+  <button class="gray" onclick="resetForm()">↺ Reset</button>
+</div>
+
+<p class="small" style="text-align:center;margin:25px 0">
+  LKPD IPS Kelas VIII • Bab 2 Ragam Aktivitas Manusia • Bagian A
+</p>
+
+</div>
+
+<script>
+const fields = document.querySelectorAll('input, textarea, select');
+
+function rapikanNama(el){
+  let value = el.value.trim().replace(/\s+/g,' ');
+  value = value.toLowerCase().replace(/\b[a-zÀ-ÿ]/g, c => c.toUpperCase());
+  el.value = value;
+}
+
+function wordCount(value){
+  return value.trim().split(/\s+/).filter(Boolean).length;
+}
+
+function calculateScore(){
+  const masalah = document.getElementById('masalah').value.trim();
+  const dampak = document.getElementById('dampak').value.trim();
+  const penyebab = document.getElementById('penyebab').value.trim();
+  const adaptasi = document.getElementById('adaptasi').value.trim();
+  const pilihan = document.getElementById('pilihan').value.trim();
+  const alasan = document.getElementById('alasan').value.trim();
+  const refleksi = document.getElementById('refleksi').value.trim();
+  const ubah = document.getElementById('ubah').value.trim();
+  const lanjut = document.getElementById('lanjut').value.trim();
+
+  let s1 = 0;
+  if(wordCount(masalah)>=5) s1 += 7; else if(masalah) s1 += 4;
+  if(wordCount(dampak)>=8) s1 += 8; else if(dampak) s1 += 4;
+  if(wordCount(penyebab)>=8) s1 += 7; else if(penyebab) s1 += 4;
+  if(wordCount(adaptasi)>=8) s1 += 8; else if(adaptasi) s1 += 4;
+
+  const checked = [...document.querySelectorAll('.choice input[type="checkbox"]:checked')].length;
+  let s2 = Math.min(10, checked * 5);
+  if(wordCount(pilihan)>=6) s2 += 7; else if(pilihan) s2 += 4;
+  if(wordCount(alasan)>=10) s2 += 8; else if(alasan) s2 += 4;
+  s2 = Math.min(25,s2);
+
+  const daily = [...document.querySelectorAll('table input')].filter(el => el.placeholder && el.placeholder.startsWith('Aksi hari'));
+  const filledDays = daily.filter(el => el.value.trim()).length;
+  let s3 = Math.min(25, Math.round(filledDays * 3.57));
+
+  let s4 = 0;
+  if(wordCount(refleksi)>=10) s4 += 10; else if(refleksi) s4 += 5;
+  if(wordCount(ubah)>=6) s4 += 5; else if(ubah) s4 += 3;
+  if(wordCount(lanjut)>=6) s4 += 5; else if(lanjut) s4 += 3;
+
+  const total = Math.min(100, Math.round(s1+s2+s3+s4));
+  document.getElementById('score').textContent = total;
+
+  let pred = 'Perlu melengkapi LKPD';
+  if(total >= 90) pred = 'Sangat Baik';
+  else if(total >= 80) pred = 'Baik';
+  else if(total >= 70) pred = 'Cukup';
+  else if(total >= 60) pred = 'Perlu Bimbingan';
+
+  document.getElementById('predicate').textContent = pred;
+  localStorage.setItem('lkpd_score',JSON.stringify({total,pred}));
+  return total;
+}
+
+function saveData(){
+  rapikanNama(document.getElementById('nama'));
+  const data={};
+  fields.forEach((el,i)=>{ data[i]=el.type==='checkbox'?el.checked:el.value; });
+  const score=calculateScore();
+  localStorage.setItem('lkpd_iklim',JSON.stringify(data));
+  localStorage.setItem('lkpd_score',JSON.stringify({total:score,pred:document.getElementById('predicate').textContent}));
+  alert('Jawaban dan nilai berhasil disimpan di browser ini.');
+}
+
+function loadData(){
+  const dateField=document.getElementById('tanggal');
+  if(dateField && !dateField.value) dateField.value=new Date().toISOString().slice(0,10);
+  const raw=localStorage.getItem('lkpd_iklim');
+  if(!raw)return;
+  const data=JSON.parse(raw);
+  fields.forEach((el,i)=>{
+    if(data[i]===undefined)return;
+    if(el.type==='checkbox')el.checked=data[i];
+    else el.value=data[i];
+  });
+  const savedScore=localStorage.getItem('lkpd_score');
+  if(savedScore){
+    try{
+      const s=JSON.parse(savedScore);
+      document.getElementById('score').textContent=s.total;
+      document.getElementById('predicate').textContent=s.pred;
+    }catch(e){}
+  }
+}
+
+function resetForm(){
+  if(confirm('Hapus semua jawaban pada LKPD ini?')){
+    fields.forEach(el=>{
+      if(el.type==='checkbox')el.checked=false;
+      else el.value='';
+    });
+    localStorage.removeItem('lkpd_iklim');
+    localStorage.removeItem('lkpd_score');
+    document.getElementById('score').textContent='0';
+    document.getElementById('predicate').textContent='Belum dinilai';
+    localStorage.removeItem('quiz_scores');
+    quizState.scores={1:null,2:null,3:null,4:null};
+    quizState.unlocked=1;
+    [1,2,3,4].forEach(l=>{
+      document.getElementById('score'+l).textContent='Belum dikerjakan';
+      document.getElementById('tab'+l).classList.remove('done');
+      if(l>1) document.getElementById('tab'+l).classList.add('locked');
+    });
+    document.getElementById('quizFinal').textContent='0';
+    document.getElementById('quizPredicate').textContent='Belum menyelesaikan semua level';
+    [1,2,3,4].forEach(l=>{
+      document.getElementById('quizLevel'+l).textContent='0';
+      document.getElementById('printQuiz'+l).textContent='0 / 100';
+    });
+    document.getElementById('printQuizFinal').textContent='0 / 100';
+    renderQuiz();
+  }
+}
+
+loadData();
+
+const quizData = {
+  1: [
+    {q:"Apa yang dimaksud dengan adaptasi terhadap perubahan iklim?", a:["Menyesuaikan diri terhadap dampak perubahan iklim","Menghentikan semua kegiatan manusia","Membiarkan lingkungan berubah tanpa tindakan","Menghindari semua aktivitas di luar rumah"], c:0},
+    {q:"Manakah yang termasuk aktivitas adaptasi?", a:["Membuat biopori","Membuang sampah ke sungai","Menebang pohon","Membakar sampah"], c:0},
+    {q:"Salah satu manfaat menanam pohon adalah...", a:["Membantu menyerap karbon dioksida","Menambah sampah","Memperbesar risiko banjir","Mengurangi daerah resapan"], c:0},
+    {q:"Aktivitas membuat lubang biopori dapat membantu...", a:["Penyerapan air ke tanah","Menutup saluran air","Menambah genangan","Mengurangi ruang terbuka"], c:0},
+    {q:"Salah satu contoh pemanfaatan air hujan adalah...", a:["Untuk menyiram tanaman","Membuangnya ke jalan","Mencampurnya dengan sampah","Membiarkannya menggenang"], c:0}
+  ],
+  2: [
+    {q:"Setelah hujan deras, halaman sekolah sering tergenang. Tindakan yang sesuai dengan materi adaptasi adalah...", a:["Membuat biopori atau memperbaiki resapan air","Menutup semua saluran air","Membuang sampah ke selokan","Menebang pohon"], c:0},
+    {q:"Banyak daun dan sisa makanan di sekolah. Tindakan yang dapat dilakukan adalah...", a:["Mengolah sampah organik menjadi kompos","Membakarnya setiap hari","Membuangnya ke sungai","Mencampurnya dengan semua sampah"], c:0},
+    {q:"Jika persediaan air bersih terbatas pada musim kemarau, salah satu tindakan yang dapat dipersiapkan adalah...", a:["Memanen dan menyimpan air hujan untuk kebutuhan yang sesuai","Membiarkan keran terbuka","Menggunakan air tanpa batas","Membuang air bersih"], c:0},
+    {q:"Sekolah ingin mengurangi panas dan menjaga lingkungan. Pilihan yang sesuai adalah...", a:["Menanam dan merawat pohon","Mengurangi tanaman","Menutup semua area tanah dengan sampah","Menebang pohon"], c:0},
+    {q:"PHBS dalam konteks pembelajaran ini dapat membantu manusia menghadapi...", a:["Risiko kesehatan yang berkaitan dengan perubahan lingkungan","Pertumbuhan sampah","Bertambahnya genangan","Kerusakan fasilitas"], c:0}
+  ],
+  3: [
+    {q:"Lingkungan rumahmu memiliki halaman yang mudah tergenang karena air hujan cepat mengalir di permukaan. Solusi yang paling berkaitan dengan materi adalah...", a:["Membuat sumur resapan/biopori","Menutup tanah dengan plastik","Membuang air ke jalan","Menebang semua tanaman"], c:0},
+    {q:"Di sekolah banyak sampah organik. Jika ingin membuat tindakan yang bermanfaat bagi lingkungan, pilihan yang paling tepat adalah...", a:["Memilah dan mengolah sampah organik menjadi kompos","Membakar semua sampah","Mencampur sampah organik dengan plastik","Membuangnya ke sungai"], c:0},
+    {q:"Mengapa menanam pohon dapat menjadi salah satu respons terhadap perubahan iklim?", a:["Pohon dapat menyerap karbon dioksida dan membantu lingkungan","Pohon membuat sampah bertambah","Pohon menghilangkan semua hujan","Pohon membuat tanah tidak menyerap air"], c:0},
+    {q:"Jika suatu daerah pesisir menghadapi kenaikan muka air laut dan gelombang tinggi, tindakan masyarakat sebaiknya...", a:["Menyesuaikan aktivitas dan menyiapkan langkah perlindungan sesuai kondisi setempat","Mengabaikan perubahan","Membuang sampah ke laut","Menebang seluruh tanaman"], c:0},
+    {q:"Seorang siswa ingin melakukan aksi sederhana yang realistis. Pilihan paling tepat adalah...", a:["Membawa botol minum sendiri dan mengurangi plastik sekali pakai","Mengubah seluruh lingkungan dalam satu hari","Membuat proyek besar tanpa bantuan","Tidak melakukan apa pun"], c:0}
+  ],
+  4: [
+    {q:"Kelasmu sering panas karena sedikit pepohonan. Sebagai siswa, usulan tindakan yang paling realistis adalah...", a:["Mengajak kelas merawat dan menambah tanaman yang sesuai","Menebang pohon yang tersisa","Membakar sampah agar halaman bersih","Menutup semua tanah dengan beton"], c:0},
+    {q:"Setelah hujan deras, selokan sekolah tersumbat sampah. Apa tindakan awal yang paling tepat?", a:["Membersihkan dan memilah sampah serta menjaga saluran tetap berfungsi","Menambah sampah agar air mengalir","Menutup selokan","Membiarkan sampai kering"], c:0},
+    {q:"Kamu ingin mengajak teman melakukan aksi 7 hari. Pilihan yang paling mudah dimulai adalah...", a:["Membuat kebiasaan sederhana seperti membawa botol minum dan menghemat air","Meminta semua siswa melakukan proyek besar","Menunggu orang lain bertindak","Tidak membuat rencana"], c:0},
+    {q:"Jika sekolah memiliki lahan kecil dan ingin membuat tindakan adaptasi, kegiatan yang dapat dipilih adalah...", a:["Membuat area tanaman/apotek hidup dan merawatnya","Membuang sampah di lahan","Menutup seluruh lahan dengan plastik","Menghilangkan tanaman"], c:0},
+    {q:"Dalam menghadapi dampak perubahan iklim, sikap siswa yang paling sesuai adalah...", a:["Mengenali masalah, memilih solusi yang sesuai, melakukan aksi, dan mengevaluasinya","Menunggu masalah hilang sendiri","Mengabaikan lingkungan","Melakukan tindakan tanpa mempertimbangkan dampak"], c:0}
+  ]
+};
+
+const quizState = {scores:{1:null,2:null,3:null,4:null}, unlocked:1};
+
+function renderQuiz(){
+  [1,2,3,4].forEach(level=>{
+    const box=document.getElementById('q'+level);
+    box.innerHTML=quizData[level].map((item,i)=>`
+      <div class="quiz-question">
+        <b>${i+1}. ${item.q}</b>
+        ${item.a.map((opt,j)=>`
+          <label class="quiz-option">
+            <input type="radio" name="lv${level}q${i}" value="${j}">
+            ${String.fromCharCode(65+j)}. ${opt}
+          </label>`).join('')}
+      </div>`).join('');
+  });
+}
+
+function syncQuizScoresToIntegratedCard(){
+  [1,2,3,4].forEach(level=>{
+    const value = quizState.scores[level]===null ? 0 : quizState.scores[level];
+    document.getElementById('quizLevel'+level).textContent=value;
+    document.getElementById('printQuiz'+level).textContent=value+' / 100';
+  });
+  const vals=Object.values(quizState.scores);
+  const completed=vals.every(v=>v!==null);
+  const final=completed ? Math.round(vals.reduce((a,b)=>a+b,0)/4) : 0;
+  document.getElementById('quizFinal').textContent=final;
+  document.getElementById('printQuizFinal').textContent=final+' / 100';
+  return final;
+}
+
+function finishLevel(level){
+  if(level>quizState.unlocked){
+    alert('Selesaikan level sebelumnya terlebih dahulu.');
+    return;
+  }
+  let correct=0, answered=0;
+  quizData[level].forEach((item,i)=>{
+    const picked=document.querySelector(`input[name="lv${level}q${i}"]:checked`);
+    if(picked){
+      answered++;
+      if(Number(picked.value)===item.c) correct++;
+    }
+  });
+  if(answered<quizData[level].length){
+    alert('Lengkapi semua soal pada level ini terlebih dahulu.');
+    return;
+  }
+  const score=correct*20;
+  quizState.scores[level]=score;
+  document.getElementById('score'+level).textContent='Nilai: '+score+'/100';
+  syncQuizScoresToIntegratedCard();
+  document.getElementById('tab'+level).classList.add('done');
+
+  if(level<4){
+    quizState.unlocked=level+1;
+    document.getElementById('tab'+(level+1)).classList.remove('locked');
+    document.getElementById('tab'+(level+1)).innerHTML='LEVEL '+(level+1)+'<br><small>'+['','KENALI','PAHAMI','ANALISIS','AKSI'][level+1]+'</small>';
+    showLevel(level+1);
+  }else{
+    const final=syncQuizScoresToIntegratedCard();
+    document.getElementById('quizFinal').textContent=final;
+    let pred=final>=90?'Sangat Baik':final>=80?'Baik':final>=70?'Cukup':'Perlu Bimbingan';
+    document.getElementById('quizPredicate').textContent=pred;
+    localStorage.setItem('quiz_scores',JSON.stringify({scores:quizState.scores,final,pred}));
+  }
+}
+
+function showLevel(level){
+  if(level>quizState.unlocked){alert('Level ini masih terkunci.');return;}
+  document.querySelectorAll('.level-panel').forEach(x=>x.classList.remove('active'));
+  document.getElementById('level'+level).classList.add('active');
+  document.querySelectorAll('.level-tab').forEach(x=>x.classList.remove('active'));
+  document.getElementById('tab'+level).classList.add('active');
+  document.getElementById('kuisBerlevel').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+[1,2,3,4].forEach(level=>{
+  document.getElementById('tab'+level).addEventListener('click',()=>showLevel(level));
+});
+
+renderQuiz();
+
+</script>
+</body>
+</html>
